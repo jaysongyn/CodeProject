@@ -2,21 +2,20 @@
 
 namespace CodeProject\Http\Controllers;
 
-
-use CodeProject\Services\ClientService;
-
+use CodeProject\Services\ProjectService;
 use Illuminate\Http\Request;
 
+use CodeProject\Http\Requests;
 
-class ClientController extends Controller
+
+class ProjectController extends Controller
 {
-
     /**
      * @var ClientService
      */
     private $service;
 
-    public function __construct(ClientService $service)
+    public function __construct(ProjectService $service)
     {
         $this->service = $service;
     }
@@ -60,7 +59,6 @@ class ClientController extends Controller
      */
     public function show($id)
     {
-
         return $this->service->show($id);
     }
 
