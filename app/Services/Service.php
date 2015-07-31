@@ -28,13 +28,14 @@ class Service
     }
 
     /**
+     * @param array $with
      * @return array|mixed
      */
-    public function index()
+    public function index($with = [])
     {
         try{
 
-            return  $this->repository->all();
+            return  $this->repository->with($with)->all();
 
         }catch (ValidationException $e){
             return [
@@ -47,13 +48,15 @@ class Service
 
     /**
      * @param $id
+     * @param array $with
      * @return array|mixed
      */
-    public function show($id)
+    public function show($id, $with = [])
     {
 
         try{
-            return  $this->repository->find($id);
+            return $this->repository->with($with)->find($id);
+
 
         }catch (ValidationException $e){
             return [

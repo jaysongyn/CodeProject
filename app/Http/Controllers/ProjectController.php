@@ -26,7 +26,7 @@ class ProjectController extends Controller
      */
     public function index()
     {
-        return  $this->service->index();
+        return  $this->service->index(['owner','client']);
 
     }
 
@@ -59,7 +59,7 @@ class ProjectController extends Controller
      */
     public function show($id)
     {
-        return $this->service->show($id);
+        return $this->service->show($id,['owner','client']);
     }
 
     /**
