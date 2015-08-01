@@ -9,6 +9,7 @@
 namespace CodeProject\Services;
 
 use CodeProject\Repositories\ProjectNoteRepository;
+
 use CodeProject\Validators\ProjectNoteValidator;
 
 class ProjectNoteService extends Service

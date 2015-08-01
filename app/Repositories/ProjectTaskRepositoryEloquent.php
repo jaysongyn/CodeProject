@@ -2,16 +2,15 @@
 
 namespace CodeProject\Repositories;
 
-use CodeProject\Entities\ProjectTask;
 use Prettus\Repository\Eloquent\BaseRepository;
-
-
+use Prettus\Repository\Criteria\RequestCriteria;
+use CodeProject\Entities\ProjectTask;
 
 /**
- * Class ProjectNoteRepositoryEloquent
+ * Class ProjectTaskRepositoryEloquent
  * @package namespace CodeProject\Repositories;
  */
-class ProjectNoteRepositoryEloquent extends BaseRepository implements ProjectNoteRepository
+class ProjectTaskRepositoryEloquent extends BaseRepository implements ProjectTaskRepository
 {
     /**
      * Specify Model class name

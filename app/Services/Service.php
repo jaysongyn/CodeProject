@@ -19,11 +19,11 @@ class Service
     /**
      * @var ClientValidator
      */
-    private $validator;
+    protected $validator;
     /**
      * @var ClientRepository
      */
-    private $repository;
+    protected $repository;
 
     public function __construct($repository, $validator)
     {
@@ -38,6 +38,7 @@ class Service
      */
     public function index($with = [])
     {
+
         try{
 
             return  $this->repository->with($with)->all();
@@ -46,6 +47,11 @@ class Service
             return [
                 'error' => true,
                 'message' => $e->getMessageBag()
+            ];
+        } catch (FatalErrorException $e){
+            return [
+                'error' => true,
+                'message' => $e->getMessage()
             ];
         }
     }
@@ -148,7 +154,7 @@ class Service
         }catch (QueryException $e){
             return [
                 'error' => true,
-                'message' => 'You cannot delete this date, there is register related!'
+                'message' => 'You cannot delete this data, there is register related!'
             ];
         }
     }

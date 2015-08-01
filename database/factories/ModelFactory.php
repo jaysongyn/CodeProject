@@ -38,8 +38,8 @@ $factory->define(CodeProject\Entities\Project::class, function (Faker\Generator 
         'name' => $faker->name,
         'description' =>$faker->text(56),
         'progress' => $faker->numberBetween(0,100),
-        'status' => $faker->text(10),
-        'due_date' => $faker->date()
+        'status' => $faker->numberBetween(1,3),
+        'due_date' => $faker->dateTime()
     ];
 });
 
@@ -48,5 +48,22 @@ $factory->define(CodeProject\Entities\ProjectNote::class, function (Faker\Genera
         'project_id' => $faker->numberBetween(1,10),
         'title' => $faker->text(10),
         'note' => $faker->text(50)
+    ];
+});
+
+$factory->define(CodeProject\Entities\ProjectTask::class, function (Faker\Generator $faker) {
+    return [
+        'project_id' => $faker->numberBetween(1,10),
+        'name' => $faker->name,
+        'status' => $faker->numberBetween(1,3),
+        'start_date' => $faker->dateTime(),
+        'due_date' => $faker->dateTime()
+    ];
+});
+
+$factory->define(CodeProject\Entities\ProjectMember::class, function (Faker\Generator $faker) {
+    return [
+        'project_id' => $faker->numberBetween(1,10),
+        'user_id' => $faker->numberBetween(1,10)
     ];
 });

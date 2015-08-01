@@ -2,31 +2,22 @@
 
 namespace CodeProject\Http\Controllers;
 
-use CodeProject\Entities\Project;
-use CodeProject\Services\ProjectMemberService;
-use CodeProject\Services\ProjectService;
-use Illuminate\Database\Eloquent\ModelNotFoundException;
-use Illuminate\Http\Request;
 
+use CodeProject\Services\ProjectTaskService;
+use Illuminate\Http\Request;
 use CodeProject\Http\Requests;
 
 
-class ProjectController extends Controller
+class ProjectTaskController extends Controller
 {
     /**
      * @var ClientService
      */
     private $service;
-    private $serviceMember;
 
-
-    /**
-     * @param ProjectService $service
-     */
-    public function __construct(ProjectService $service)
+    public function __construct(ProjectTaskService  $service)
     {
         $this->service = $service;
-
     }
     /**
      * Display a listing of the resource.
@@ -35,7 +26,8 @@ class ProjectController extends Controller
      */
     public function index()
     {
-        return  $this->service->index(['notes','owner','client','members']);
+
+        return  $this->service->index(['project']);
 
     }
 
@@ -68,7 +60,8 @@ class ProjectController extends Controller
      */
     public function show($id)
     {
-        return $this->service->show($id,['notes','owner','client','members']);
+
+        return $this->service->show($id,['project']);
     }
 
     /**
@@ -105,19 +98,4 @@ class ProjectController extends Controller
     {
        return  $this->service->destroy($id);
     }
-
-    /**
-     * @param Request $request
-     * @return array
-     */
-    public function addMember(Request $request)
-    {
-        return  $this->service->addMember($request->all());
-    }
-
-    public function removeMember($mid,$id)
-    {
-        return  $this->service->removeMember($mid,$id);
-    }
-
 }
