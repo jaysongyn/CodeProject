@@ -18,12 +18,12 @@ Route::get('/', function () {
 Route::get('client', 'ClientController@index');
 Route::post('client', 'ClientController@store');
 Route::get('client/{id}', 'ClientController@show');
-Route::delete('client/{id}/delete', 'ClientController@destroy');
+Route::get('client/{id}/delete', 'ClientController@destroy');
 Route::put('client/{id}/update',  'ClientController@update');
 
 
 Route::get('project', 'ProjectController@index');
 Route::post('project', 'ProjectController@store');
 Route::get('project/{id}', 'ProjectController@show');
-Route::delete('project/{id}/delete', 'ProjectController@destroy');
+Route::get('project/{id}/delete', 'ProjectController@destroy');
 Route::put('project/{id}/update',  'ProjectController@update');

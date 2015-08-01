@@ -9,6 +9,11 @@
 namespace CodeProject\Services;
 
 
+use Illuminate\Database\Eloquent\ModelNotFoundException;
+use Illuminate\Database\QueryException;
+use Illuminate\Support\ServiceProvider;
+use Prettus\Validator\Exceptions\ValidatorException;
+
 class Service
 {
     /**
@@ -37,7 +42,7 @@ class Service
 
             return  $this->repository->with($with)->all();
 
-        }catch (ValidationException $e){
+        }catch (ValidatorException $e){
             return [
                 'error' => true,
                 'message' => $e->getMessageBag()
@@ -55,13 +60,14 @@ class Service
     {
 
         try{
+
             return $this->repository->with($with)->find($id);
 
 
-        }catch (ValidationException $e){
+        }catch (ModelNotFoundException $e){
             return [
                 'error' => true,
-                'message' => $e->getMessageBag()
+                'message' => 'No data found for id:'.$id
             ];
         }
     }
@@ -78,7 +84,7 @@ class Service
 
             return $this->repository->create($data);
 
-        }catch (ValidationException $e){
+        }catch (ValidatorException $e){
             return [
                 'error' => true,
                 'message' => $e->getMessageBag()
@@ -99,7 +105,7 @@ class Service
 
             return $this->repository->update($data, $id);
 
-        }catch (ValidationException $e){
+        }catch (ValidatorException $e){
             return [
                 'error' => true,
                 'message' => $e->getMessageBag()
@@ -118,7 +124,7 @@ class Service
 
             return $this->repository->create($request);
 
-        }catch (ValidationException $e){
+        }catch (ValidatorException $e){
             return [
                 'error' => true,
                 'message' => $e->getMessageBag()
@@ -130,12 +136,19 @@ class Service
     {
         try{
 
-            return  $this->repository->find($id)->delete();
+            $this->repository->find($id)->delete();
 
-        }catch (ValidationException $e){
+            return ['deleted' => 'true'];
+
+        }catch (ModelNotFoundException $e){
             return [
                 'error' => true,
-                'message' => $e->getMessageBag()
+                'message' => 'No data found for id:'.$id
+            ];
+        }catch (QueryException $e){
+            return [
+                'error' => true,
+                'message' => 'You cannot delete this date, there is register related!'
             ];
         }
     }
