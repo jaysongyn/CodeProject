@@ -30,5 +30,9 @@ class Project extends Model implements Transformable
 	{
 		return $this->belongsTo('CodeProject\Entities\Client');
 	}
+	public function notes()
+	{
+		return $this->hasMany('CodeProject\Entities\ProjectNote');
+	}
 
 }

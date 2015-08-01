@@ -42,3 +42,11 @@ $factory->define(CodeProject\Entities\Project::class, function (Faker\Generator 
         'due_date' => $faker->date()
     ];
 });
+
+$factory->define(CodeProject\Entities\ProjectNote::class, function (Faker\Generator $faker) {
+    return [
+        'project_id' => $faker->numberBetween(1,10),
+        'title' => $faker->text(10),
+        'note' => $faker->text(50)
+    ];
+});

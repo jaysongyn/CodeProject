@@ -2,22 +2,20 @@
 
 namespace CodeProject\Http\Controllers;
 
-use CodeProject\Entities\Project;
-use CodeProject\Services\ProjectService;
-use Illuminate\Database\Eloquent\ModelNotFoundException;
-use Illuminate\Http\Request;
 
+use CodeProject\Services\ProjectNoteService;
+use Illuminate\Http\Request;
 use CodeProject\Http\Requests;
 
 
-class ProjectController extends Controller
+class ProjectNoteController extends Controller
 {
     /**
      * @var ClientService
      */
     private $service;
 
-    public function __construct(ProjectService $service)
+    public function __construct(ProjectNoteService  $service)
     {
         $this->service = $service;
     }
@@ -28,7 +26,7 @@ class ProjectController extends Controller
      */
     public function index()
     {
-        return  $this->service->index(['notes','owner','client']);
+        return  $this->service->index(['project']);
 
     }
 
@@ -59,10 +57,10 @@ class ProjectController extends Controller
      * @param  int  $id
      * @return Response
      */
-    public function show($id, Project $project)
+    public function show($id)
     {
 
-        return $this->service->show($id,['notes','owner','client']);
+        return $this->service->show($id,['project']);
     }
 
     /**
