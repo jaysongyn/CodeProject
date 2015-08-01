@@ -2,10 +2,10 @@
 
 namespace CodeProject\Http\Controllers;
 
-use CodeProject\Entities\Project;
+
 use CodeProject\Services\ProjectMemberService;
 use CodeProject\Services\ProjectService;
-use Illuminate\Database\Eloquent\ModelNotFoundException;
+
 use Illuminate\Http\Request;
 
 use CodeProject\Http\Requests;
@@ -17,7 +17,6 @@ class ProjectController extends Controller
      * @var ClientService
      */
     private $service;
-    private $serviceMember;
 
 
     /**
