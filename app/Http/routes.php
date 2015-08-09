@@ -11,15 +11,17 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
+Route::get('home', function () {
+    echo "here";
+    return view('dmed.index');
+
 });
 
 Route::post('oauth/access_token', function(){
     return Response::json(\Authorizer::issueAccessToken());
 });
 
-//Route::group(['middleware' => 'oauth'], function(){
+Route::group(['middleware' => 'oauth'], function(){
 
     Route::resource('client','ClientController',['except' => ['create','edit']]);
 
@@ -31,7 +33,11 @@ Route::post('oauth/access_token', function(){
 
     Route::post('member/project','ProjectController@addMember');
     Route::delete('member/{mid}/project/{id}','ProjectController@removeMember');
-//});
+
+    Route::post('project/{id}/file','ProjectFileController@store');
+
+    Route::delete('project/file/{id}','ProjectFileController@destroy');
+});
 
 
 

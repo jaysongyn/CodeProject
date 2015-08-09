@@ -2,7 +2,9 @@
 
 namespace CodeProject\Repositories;
 
-use CodeProject\Entities\ProjectTask;
+use CodeProject\Entities\ProjectNote;
+
+use CodeProject\Presenters\ProjectNotePresenter;
 use Prettus\Repository\Eloquent\BaseRepository;
 
 
@@ -20,6 +22,11 @@ class ProjectNoteRepositoryEloquent extends BaseRepository implements ProjectNot
      */
     public function model()
     {
-        return ProjectTask::class;
+        return ProjectNote::class;
+    }
+
+    public function presenter(){
+
+        return ProjectNotePresenter::class;
     }
 }

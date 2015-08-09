@@ -38,7 +38,6 @@ class Service
      */
     public function index($with = [])
     {
-
         try{
 
             return  $this->repository->with($with)->all();

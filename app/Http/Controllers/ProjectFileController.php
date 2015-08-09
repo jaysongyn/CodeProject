@@ -2,32 +2,23 @@
 
 namespace CodeProject\Http\Controllers;
 
-
-use CodeProject\Services\ProjectMemberService;
 use CodeProject\Services\ProjectService;
-
 use Illuminate\Http\Request;
 
 use CodeProject\Http\Requests;
-use LucaDegasperi\OAuth2Server\Facades\Authorizer;
 
 
-class ProjectController extends Controller
+
+
+class ProjectFileController extends Controller
 {
-    /**
-     * @var ClientService
-     */
-    private $service;
 
-
-    /**
-     * @param ProjectService $service
-     */
     public function __construct(ProjectService $service)
     {
         $this->service = $service;
 
     }
+
     /**
      * Display a listing of the resource.
      *
@@ -35,8 +26,7 @@ class ProjectController extends Controller
      */
     public function index()
     {
-        return  $this->service->index(['notes','owner','client','members']);
-
+        //
     }
 
     /**
@@ -57,8 +47,7 @@ class ProjectController extends Controller
      */
     public function store(Request $request)
     {
-
-        return $this->service->store($request->all());
+        return $this->service->createFile($request->all());
     }
 
     /**
@@ -69,8 +58,7 @@ class ProjectController extends Controller
      */
     public function show($id)
     {
-        $userId = Authorizer::getResourceOwnerId();
-        return $this->service->show($id, $userId, ['notes','owner','client','members']);
+        //
     }
 
     /**
@@ -93,8 +81,7 @@ class ProjectController extends Controller
      */
     public function update(Request $request, $id)
     {
-        return $this->service->update($request->all(),$id);
-
+        //
     }
 
     /**
@@ -105,21 +92,6 @@ class ProjectController extends Controller
      */
     public function destroy($id)
     {
-       return  $this->service->destroy($id);
+        return $this->service->destroyImage($id);
     }
-
-    /**
-     * @param Request $request
-     * @return array
-     */
-    public function addMember(Request $request)
-    {
-        return  $this->service->addMember($request->all());
-    }
-
-    public function removeMember($mid,$id)
-    {
-        return  $this->service->removeMember($mid,$id);
-    }
-
 }

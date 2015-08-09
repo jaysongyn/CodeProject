@@ -11,7 +11,6 @@ class Project extends Model implements Transformable
     use TransformableTrait;
 
     protected $fillable = [
-		'id',
 		'owner_id',
 		'client_id',
 		'name',
@@ -23,16 +22,16 @@ class Project extends Model implements Transformable
 
 	public function owner()
 	{
-		return $this->belongsTo('CodeProject\Entities\User');
+		return $this->belongsTo(User::class);
 	}
 
 	public function client()
 	{
-		return $this->belongsTo('CodeProject\Entities\Client');
+		return $this->belongsTo(Client::class);
 	}
 	public function notes()
 	{
-		return $this->hasMany('CodeProject\Entities\ProjectNote');
+		return $this->hasMany(ProjectNote::class);
 	}
 
 	public function tasks()
@@ -42,7 +41,12 @@ class Project extends Model implements Transformable
 
 	public function members()
 	{
-		return $this->belongsToMany(User::class,'project_members');
+		return $this->belongsToMany(User::class,'project_members','project_id', 'user_id');
+	}
+
+	public function files(){
+
+		return $this->hasMany(ProjectFile::class);
 	}
 
 }

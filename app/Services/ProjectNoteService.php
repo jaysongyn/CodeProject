@@ -20,6 +20,7 @@ class ProjectNoteService extends Service
      */
     public function __construct(ProjectNoteRepository $repository, ProjectNoteValidator $validator)
     {
+
         parent::__construct($repository, $validator);
     }
 
