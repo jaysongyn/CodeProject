@@ -7,4 +7,4 @@ Homestead.json
 .gitignore
 .idea/
 .idea
-resource/bower_components
+resources/bower_components
