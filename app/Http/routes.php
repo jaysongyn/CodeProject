@@ -11,9 +11,8 @@
 |
 */
 
-Route::get('home', function () {
-    echo "here";
-    return view('dmed.index');
+Route::get('/', function () {
+    return view('welcome');
 
 });
 
