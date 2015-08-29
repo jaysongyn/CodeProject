@@ -1,8 +1,24 @@
-var app = angular.module('app',['ngRoute','angular-oauth2','app.controllers']);
+var app = angular.module('app',['ngRoute','angular-oauth2','app.controllers','app.services']);
 
-angular.module('app.controllers',['angular-oauth2']);
+angular.module('app.controllers',['ngMessages','angular-oauth2']);
+angular.module('app.services', ['ngResource']);
 
-app.config(['$routeProvider','OAuthProvider', function($routeProvider, OAuthProvider) {
+app.provider('appConfig', function(){
+    var config = {
+        baseUrl: 'http://localhost:8000'
+    }
+
+    return {
+        config: config,
+        $get: function(){
+            return config;
+        }
+    }
+});
+
+app.config([
+    '$routeProvider','OAuthProvider','OAuthTokenProvider','appConfigProvider',
+    function($routeProvider, OAuthProvider, OAuthTokenProvider, appConfigProvider) {
     $routeProvider
         .when('/login', {
             templateUrl: '/build/views/login.html',
@@ -11,14 +27,37 @@ app.config(['$routeProvider','OAuthProvider', function($routeProvider, OAuthProv
         .when('/home', {
             templateUrl: '/build/views/home.html',
             controller: 'HomeController'
+        })
+        .when('/client', {
+            templateUrl: '/build/views/client/list.html',
+            controller: 'ClientListController'
+        })
+        .when('/client/new', {
+            templateUrl: '/build/views/client/new.html',
+            controller: 'ClientNewController'
+        })
+        .when('/client/:id/edit', {
+            templateUrl: '/build/views/client/edit.html',
+            controller: 'ClientEditController'
+        })
+        .when('/client/:id/remove', {
+            templateUrl: '/build/views/client/remove.html',
+            controller: 'ClientRemoveController'
         });
 
     OAuthProvider.configure({
-        baseUrl: 'http://localhost:8000',
+        baseUrl: appConfigProvider.config.baseUrl,
         clientId: 'app',
         clientSecret: 'secret', // optional
         grantPath: '/oauth/access_token'
     });
+
+    OAuthTokenProvider.configure({
+        name: 'token',
+        options: {
+            secure: false
+        }
+    })
 }]);
 
 
