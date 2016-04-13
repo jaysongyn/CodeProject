@@ -19,6 +19,7 @@ app.provider('appConfig', function(){
 app.config([
     '$routeProvider','OAuthProvider','OAuthTokenProvider','appConfigProvider',
     function($routeProvider, OAuthProvider, OAuthTokenProvider, appConfigProvider) {
+
     $routeProvider
         .when('/login', {
             templateUrl: '/build/views/login.html',
