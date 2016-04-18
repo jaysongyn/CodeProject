@@ -1,11 +1,20 @@
-var app = angular.module('app',['ngRoute','angular-oauth2','app.controllers','app.services']);
+var app = angular.module('app',['ngRoute','angular-oauth2','app.controllers','app.services','app.filters']);
 
 angular.module('app.controllers',['ngMessages','angular-oauth2']);
+angular.module('app.filters', []);
 angular.module('app.services', ['ngResource']);
 
 app.provider('appConfig', function(){
     var config = {
-        baseUrl: 'http://localhost:8000'
+        baseUrl: 'http://localhost:8000',
+        project: {
+            status:[
+                {value: 1, label: "Não Iniciado"},
+                {value: 2, label: "Iniciado"},
+                {value: 3, label: "Concluído"}
+            ]
+
+        }
     }
 
     return {
@@ -17,9 +26,22 @@ app.provider('appConfig', function(){
 });
 
 app.config([
-    '$routeProvider','OAuthProvider','OAuthTokenProvider','appConfigProvider',
-    function($routeProvider, OAuthProvider, OAuthTokenProvider, appConfigProvider) {
+    '$routeProvider','OAuthProvider','$httpProvider','OAuthTokenProvider','appConfigProvider',
+    function($routeProvider, OAuthProvider,$httpProvider, OAuthTokenProvider, appConfigProvider) {
+        $httpProvider.defaults.transformResponse = function(data,headers){
+            var headersGetter = headers();
 
+            if(headersGetter['content-type'] == 'application/json' || headersGetter['content-type'] == 'text/json' ){
+                var dataJson = JSON.parse(data);
+                if(dataJson.hasOwnProperty('data')){
+
+                    dataJson = dataJson.data;
+                }
+
+                return dataJson;
+            }
+            return data;
+        }
     $routeProvider
         .when('/login', {
             templateUrl: '/build/views/login.html',
@@ -44,7 +66,41 @@ app.config([
         .when('/client/:id/remove', {
             templateUrl: '/build/views/client/remove.html',
             controller: 'ClientRemoveController'
-        });
+        })
+        .when('/projects', {
+            templateUrl: '/build/views/project/list.html',
+            controller: 'ProjectListController'
+        })
+        .when('/projects/new', {
+            templateUrl: '/build/views/project/new.html',
+            controller: 'ProjectNewtController'
+        })
+        .when('/projects/:id/edit', {
+            templateUrl: '/build/views/project/edit.html',
+            controller: 'ProjectEdittController'
+        })
+        .when('/projects/:id/remove', {
+            templateUrl: '/build/views/project/remove.html',
+            controller: 'ProjectRemoveController'
+        })
+        .when('/project/:id/notes', {
+            templateUrl: '/build/views/project-note/list.html',
+            controller: 'ProjectNoteListController'
+        })
+        .when('/project/:id/note/new', {
+            templateUrl: '/build/views/project-note/new.html',
+            controller: 'ProjectNoteNewtController'
+        })
+        .when('/project/:id/note/:idNote/edit', {
+            templateUrl: '/build/views/project-note/edit.html',
+            controller: 'ProjectNoteEdittController'
+        })
+        .when('/project/:id/note/:idNote/remove', {
+            templateUrl: '/build/views/project-note/remove.html',
+            controller: 'ProjectNoteRemoveController'
+        })
+
+    ;
 
     OAuthProvider.configure({
         baseUrl: appConfigProvider.config.baseUrl,

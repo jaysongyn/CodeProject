@@ -172,7 +172,7 @@ class ProjectService
         try{
             if($this->checkPermissionProject($id, $userId)){
 
-                return $this->repository->with($with)->find($id);
+                return $this->repository->skipPresenter()->with($with)->find($id);
 
             }else{
 
@@ -216,7 +216,7 @@ class ProjectService
     public function create(array $data)
     {
         try{
-            $this->validator->with($data)->passesOrFail();
+            //$this->validator->with($data)->passesOrFail();
 
             return $this->repository->create($data);
 
@@ -257,7 +257,7 @@ class ProjectService
     public function store(array $data)
     {
         try{
-            $this->validator->with($data)->passesOrFail();
+          //  $this->validator->with($data)->passesOrFail();
 
             return $this->repository->create($data);
 
@@ -277,7 +277,7 @@ class ProjectService
     {
         try{
 
-            $this->repository->find($id)->delete();
+            $this->repository->skipPresenter()->find($id)->delete();
 
             return ['deleted' => 'true'];
 

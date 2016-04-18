@@ -141,9 +141,6 @@ class Service
     {
         try{
 
-           // dd($id);
-            $this->repository->find($id)->delete();
-
             return ['deleted' => 'true'];
 
         }catch (ModelNotFoundException $e){

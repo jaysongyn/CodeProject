@@ -19,7 +19,8 @@ class UserController extends Controller
 
     public function authenticated(){
         $userId = Authorizer::getResourceOwnerId();
-        $this->repository->find($userId);
+
+       return  $this->repository->find($userId);
     }
     /**
      * Display a listing of the resource.

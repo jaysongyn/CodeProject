@@ -24,9 +24,9 @@ class ProjectNoteController extends Controller
      *
      * @return Response
      */
-    public function index()
+    public function index($id)
     {
-        return  $this->service->index(['project']);
+        return  $this->service->index($id);
     }
 
     /**

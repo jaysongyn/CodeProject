@@ -20,6 +20,19 @@ class Project extends Model implements Transformable
 		'due_date',
 	];
 
+	public  function setDueDateAttribute($value) {
+
+		$date= explode('/', $value);
+		if(isset($date[2]))
+			$this->attributes['due_date'] = $date[2] ."-".$date[1] ."-".$date[0];
+		else
+			$this->attributes['due_date'] = $value;
+	}
+
+	public function getDueDateAttribute($value){
+		return date('d/m/Y', strtotime($value));
+	}
+
 	public function owner()
 	{
 		return $this->belongsTo(User::class);
