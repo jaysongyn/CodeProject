@@ -22,7 +22,9 @@ class Project extends Model implements Transformable
 
 	public  function setDueDateAttribute($value) {
 
-		$date= explode('/', $value);
+
+		if(isset($value) and !is_array($value) and !is_object($value))
+			$date= explode('/', $value);
 		if(isset($date[2]))
 			$this->attributes['due_date'] = $date[2] ."-".$date[1] ."-".$date[0];
 		else
