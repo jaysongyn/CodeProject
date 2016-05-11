@@ -193,7 +193,7 @@ class ProjectService
 
         try{
 
-            return  $this->repository->with($with)->all();
+            return  $this->repository->skipPresenter()->with($with)->all();
 
         }catch (ValidatorException $e){
             return [

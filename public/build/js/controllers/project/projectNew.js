@@ -1,19 +1,35 @@
 angular.module('app.controllers')
-    .controller('ProjectNewtController',['$scope','$location','Project','Client','appConfig','$cookies',
-        function($scope,$location, Project,Client,appConfig,$cookies) {
-        $scope.project = new Project();
-        $scope.clients = new Client.query();
-        $scope.status = appConfig.project.status;
+    .controller('ProjectNewtController', ['$scope', '$location', 'Project', 'Client', 'appConfig', '$cookies',
+        function ($scope, $location, Project, Client, appConfig, $cookies) {
+            $scope.project = new Project();
+            $scope.clients = new Client.query();
+            $scope.status = appConfig.project.status;
 
+            $scope.formatName = function (id) {
+                if(id){
+                    for (var i in $scope.clients) {
+                        if ($scope.clients[i].id == id) {
+                            return $scope.clients[i].name
+                        }
+                    }
+                }
+                return '';
 
-        $scope.save = function(){
-           if($scope.form.$valid){
-               $scope.project.owner_id = $cookies.getObject ('user').id;
-                $scope.project.$save().then(function(){
-                    $location.path('/projects' );
-                });
-           }else {
-               console.log("aqui");
-           }
-        }
-    }]);
+            }
+            $scope.getClients = function (name) {
+              return Client.query({
+                  search:name,
+                  searchFields:'name:like'
+              }).$promise;
+            }
+            $scope.save = function () {
+                if ($scope.form.$valid) {
+                    $scope.project.owner_id = $cookies.getObject('user').id;
+                    $scope.project.$save().then(function () {
+                        $location.path('/projects');
+                    });
+                } else {
+                    console.log("aqui");
+                }
+            }
+        }]);

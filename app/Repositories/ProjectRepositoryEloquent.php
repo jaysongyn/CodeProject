@@ -13,6 +13,7 @@ use CodeProject\Entities\Project;
  */
 class ProjectRepositoryEloquent extends BaseRepository implements ProjectRepository
 {
+
     /**
      * Specify Model class name
      *
@@ -27,5 +28,7 @@ class ProjectRepositoryEloquent extends BaseRepository implements ProjectReposit
 
         return ProjectPresenter::class;
     }
+
+
 
 }
