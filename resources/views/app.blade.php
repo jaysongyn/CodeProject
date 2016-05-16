@@ -9,6 +9,7 @@
     @if(Config::get('app.debug'))
         <link href="{{ asset('build/css/vendor/bootstrap.min.css') }}" rel="stylesheet" type="text/css">
         <link href="{{ asset('build/css/vendor/bootstrap-theme.min.css') }}" rel="stylesheet" type="text/css">
+      
     @else
         <link href="{{ elixir('css/all.css') }}" rel="stylesheet" type="text/css">
         @endif

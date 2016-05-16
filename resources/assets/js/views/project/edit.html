@@ -34,13 +34,15 @@
                         <div class="form-group"  ng-class="{'has-error':!form.client_id.$valid && form.client_id.$touched}">
                             <label class="col-md-4 control-label">Client</label>
                             <div class="col-md-6">
-                                <select class="form-control" name="client_id"  ng-model="project.client_id"
-                                        ng-options="o.id as o.name for o in clients"
-                                        required>
-                                    <option value=""><-- Select Status --></option>
-                                </select>
+                                <input class="form-control" name="client_id"  ng-model="clientSelected"
+                                       typeahead="o as o.name for o in getClients($viewValue)"
+                                       typeahead-input-formatter="formatName($model)"
+                                       typeahead-editable="false"
+                                       required>
+                                </input>
                                 <div ng-messages="form.client_id.$error" class="help-block" ng-show="!form.client_id.$valid && form.client_id.$touched">
                                     <div ng-message="required">Campo obrigatório</div>
+                                    <div ng-message="editable">Cliente não é válido</div>
                                 </div>
                             </div>
                         </div>
